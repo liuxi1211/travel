@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.travel.dao.impl.UserDao">
+    <select id="findUser" resultType="User">
+        select uid,username,password,name,birthday,sex,telephone,email,status,code from tab_user
+        <where>
+            <if test="username !=null and username !=''">
+                username=#{username}
+            </if>
+            <if test="password !=null and password !=''">
+                and password =#{password}
+            </if>
+            <if test="name !=null and name !=''">
+                and name =#{name}
+            </if>
+            <if test="birthday !=null and birthday !=''">
+                and birthday =#{birthday}
+            </if>
+            <if test="sex !=null and sex !=''">
+                and sex =#{sex}
+            </if>
+            <if test="telephone !=null and telephone !=''">
+                and telephone =#{telephone}
+            </if>
+            <if test="email !=null and email !=''">
+                and email =#{email}
+            </if>
+            <if test="status !=null and status !=''">
+                and status =#{status}
+            </if>
+            <if test="code !=null and code !=''">
+                and code =#{code}
+            </if>
+        </where>
+    </select>
+    <insert id="savenUser">
+        insert into tab_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateUser">
+        update tab_user
+        <set>
+            <if test="username !=null and username !=''">
+                username= #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password !=null and password !=''">
+                password= #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name !=null and name !=''">
+                name= #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday !=null and birthday !=''">
+                birthday= #{birthday,jdbcType=DATE},
+            </if>
+            <if test="sex !=null and sex !=''">
+                sex= #{sex,jdbcType=CHAR},
+            </if>
+            <if test="telephone !=null and telephone !=''">
+                telephone= #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="email !=null and email !=''">
+                email= #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status !=null and status !=''">
+                status= #{status,jdbcType=CHAR},
+            </if>
+            <if test="code !=null and code !=''">
+                code= #{code,jdbcType=VARCHAR}
+            </if>
+            <where>
+                <if test="username !=null and username !=''">
+                    username=#{username}
+                </if>
+                <if test="password !=null and password !=''">
+                    and password =#{password}
+                </if>
+                <if test="name !=null and name !=''">
+                    and name =#{name}
+                </if>
+                <if test="birthday !=null and birthday !=''">
+                    and birthday =#{birthday}
+                </if>
+                <if test="sex !=null and sex !=''">
+                    and sex =#{sex}
+                </if>
+                <if test="telephone !=null and telephone !=''">
+                    and telephone =#{telephone}
+                </if>
+                <if test="email !=null and email !=''">
+                    and email =#{email}
+                </if>
+                <if test="status !=null and status !=''">
+                    and status =#{status}
+                </if>
+                <if test="code !=null and code !=''">
+                    and code =#{code}
+                </if>
+            </where>
+        </set>
+    </update>
+    <update id="updateStatusWithCode">
+        update tab_user set status=#{status} where code=#{code}
+    </update>
+</mapper>

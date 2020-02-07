@@ -1,0 +1,42 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <!--    <filter>-->
+    <!--        <filter-name>characterEncodingFilter</filter-name>-->
+    <!--        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+    <!--        <init-param>-->
+    <!--            &lt;!&ndash;要使用的字符集，一般我们使用UTF-8(保险起见UTF-8最好)&ndash;&gt;-->
+    <!--            <param-name>encoding</param-name>-->
+    <!--            <param-value>UTF-8</param-value>-->
+    <!--        </init-param>-->
+    <!--        <init-param>-->
+    <!--            &lt;!&ndash;是否强制设置request的编码为encoding，默认false，不建议更改&ndash;&gt;-->
+    <!--            <param-name>forceRequestEncoding</param-name>-->
+    <!--            <param-value>false</param-value>-->
+    <!--        </init-param>-->
+    <!--        <init-param>-->
+    <!--            &lt;!&ndash;是否强制设置response的编码为encoding，建议设置为true，下面有关于这个参数的解释&ndash;&gt;-->
+    <!--            <param-name>forceResponseEncoding</param-name>-->
+    <!--            <param-value>true</param-value>-->
+    <!--        </init-param>-->
+    <!--    </filter>-->
+    <!--    <filter-mapping>-->
+    <!--        <filter-name>characterEncodingFilter</filter-name>-->
+    <!--        &lt;!&ndash;这里不能留空或者直接写 ' / ' ，否者不起作用&ndash;&gt;-->
+    <!--        <url-pattern>/*</url-pattern>-->
+    <!--    </filter-mapping>-->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>cn.itcast.travel.web.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.travel.dao.impl.RouteDao">
+    <select id="findRouteList" resultType="Route">
+        <if test="rname !=null and rname !=''">
+            <bind name="parrern_rname" value="'%'+ rname +'%'"/>
+        </if>
+        select * from tab_route
+        <where>
+            <if test="cid !=null and cid !=''">
+                cid=#{cid}
+            </if>
+            <if test="rname !=null and rname !=''">
+                and rname like #{parrern_rname}
+            </if>
+        </where>
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="findRouteCounts" resultType="int">
+        <if test="rname !=null and rname !=''">
+            <bind name="parrern_rname" value="'%'+ rname +'%'"/>
+        </if>
+        select count(1) from tab_route
+        <where>
+            <if test="cid !=null and cid !=''">
+                cid =#{cid}
+            </if>
+            <if test="rname !=null and rname !=''">
+                and rname like #{parrern_rname}
+            </if>
+        </where>
+    </select>
+
+    <select id="getRouteDetils" resultMap="RouteList">
+        select rid,rname,price,routeIntroduce,rflag,rdate,isThemeTour,count,cid,rimage,sid,sourceId from
+        tab_route
+        <where>
+            <if test="rid !=null and rid !=''">
+                rid =#{rid}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="RouteList" type="Route">
+        <id column="rid" property="rid"/>
+        <result column="rname" property="rname"/>
+        <result column="price" property="price"/>
+        <result column="routeIntroduce" property="routeIntroduce"/>
+        <result column="rflag" property="rflag"/>
+        <result column="rdate" property="rdate"/>
+        <result column="isThemeTour" property="isThemeTour"/>
+        <result column="count" property="count"/>
+        <result column="cid" property="cid"/>
+        <result column="rimage" property="rimage"/>
+        <result column="sid" property="sid"/>
+        <result column="sourceId" property="sourceId"/>
+        <association property="seller" column="sid" select="findSeller"/>
+        <association property="category" column="cid" select="cn.itcast.travel.dao.impl.CategoryDao.findAll"/>
+        <collection property="routeImgList" column="rid" select="findRouteImg"/>
+    </resultMap>
+
+    <select id="findSeller" resultType="Seller">
+        select sid,sname,consphone,address from tab_seller where sid =#{sid}
+    </select>
+    <select id="findRouteImg" resultType="RouteImg">
+        select rgid,rid,bigPic,smallPic from tab_route_img where rid =#{rid}
+    </select>
+</mapper>
